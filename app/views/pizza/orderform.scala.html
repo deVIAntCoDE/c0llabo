@@ -1,0 +1,37 @@
+@(pizzaForm: Form[(String,String,String)])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Pizza order") {
+
+<h1>Pizza order</h1>
+<div class="clearfix error" id="username_field">
+@form(routes.PizzaOrder.orderPizza()) {
+<fieldset>
+    <legend>Choose pizza</legend>
+    <select name="pizzaType">
+        <option value="margherita">Margherita</option>
+        <option value="hawaiian">Hawaiian</option>
+        <option value="pepperoni">Pepperoni</option>
+        <option value="quattroformaggi">Quattro formaggi</option>
+    </select>
+</fieldset>
+<fieldset>
+    <legend>Size</legend>
+    <input type="radio" name="size" id="sizeMedium"
+           value="Medium" checked="checked"/>
+    <label for="sizeMedium">Medium</label>
+    <br/>
+    <input type="radio" name="size" id="sizeLarge"
+           value="Large"/>
+    <label for="sizeLarge">Large</label>
+</fieldset>
+<fieldset>
+    <legend>Delivery address</legend>
+    <input type="text" name="address"/>
+</fieldset>
+<button type="submit">Order pizza </button>
+        }
+    </div>
+        }

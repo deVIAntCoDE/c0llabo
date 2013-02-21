@@ -4,6 +4,13 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET     /about.html                 controllers.Application.about
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET /order/              controllers.PizzaOrder.showOrderForm
+GET /order/index.html    controllers.PizzaOrder.showOrderForm
+GET /order/new.html      controllers.PizzaOrder.showOrderForm
+POST /order/             controllers.PizzaOrder.orderPizza
+GET /pizzaOrdered.html   controllers.PizzaOrder.pizzaOrdered(pizzaType: String)

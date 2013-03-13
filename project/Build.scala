@@ -11,12 +11,12 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     jdbc,
     anorm
-
+   // "securesocial" %% "securesocial" % "master-SNAPSHOT"
   )
 
-
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    // Add your own project settings here      
+    // Add your own project settings here
+//    resolvers += Resolver.url("sbt-plugin-snapshots", url("http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/"))(Resolver.ivyStylePatterns)
   )
 
 }

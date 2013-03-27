@@ -14,3 +14,8 @@ GET /order/index.html    controllers.PizzaOrder.showOrderForm
 GET /order/new.html      controllers.PizzaOrder.showOrderForm
 POST /order/             controllers.PizzaOrder.orderPizza
 GET /pizzaOrdered.html   controllers.PizzaOrder.pizzaOrdered(pizzaType: String)
+
+
+GET     /users                  controllers.Application.users
+POST    /users                  controllers.Application.newUser
+POST    /user/:email/delete       controllers.Application.deleteUser(email: String)

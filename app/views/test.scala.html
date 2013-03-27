@@ -1,0 +1,36 @@
+@(users: Seq[User], userForm:Form[(String, String, String)])
+@import helper._
+@main ("User Management"){
+        <h1>@users.size User(s)</h1>
+        <ul>
+            @users.map{ user=>{
+                 <li>
+                     @user.name
+                     @form(routes.Application.deleteUser(user.email)){
+                        <input type="submit" value="Delete">
+                     }
+                 </li>
+                }
+            }
+        </ul>
+
+        <br>
+        <h2>
+            Add new user
+        </h2>
+        @form(routes.Application.newUser){
+<p>
+    <input type="email" name="email" placeholder="Email" id="email" value="@userForm("email").value">
+</p>
+<!--<p>-->
+    <!--<input type="name" name="name" placeholder="Name" id="name" value="@userForm("name").value">-->
+<!--</p>-->
+<p>
+    <input type="password" name="password" placeholder="Password" id="password" value="@userForm("password").value">
+</p>
+              @inputText(userForm("name"))
+              <!--@inputPassword(userForm("password"))-->
+            <input type="submit" value="Create" >
+        }
+
+        }

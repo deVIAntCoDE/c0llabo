@@ -1,9 +1,4 @@
 package models
-import play.api.db._
-import play.api.Play.current
-
-import anorm._
-import anorm.SqlParser._
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,9 +7,17 @@ import anorm.SqlParser._
  * Time: 23:10
  * To change this template use File | Settings | File Templates.
  */
+import play.api.db._
+import play.api.Play.current
 
-case class User(email:String, name:String, password:String)
+import anorm._
+import anorm.SqlParser._
+
+case class User(email: String, name: String, password: String, admin:Boolean = false)
+
 object User {
+
+  // -- Parsers
 
   /**
    * Parse a User from a ResultSet
@@ -22,38 +25,9 @@ object User {
   val simple = {
     get[String]("user.email") ~
     get[String]("user.name") ~
-    get[String]("user.password") map {
-      case email~name~password => User(email,name,password)
-    }
-  }
-
-  def findByEmail(email:String):Option[User]={
-    DB.withConnection{ implicit connection =>
-    SQL("select * from user where email={email}").on(
-       'email -> email
-    ).as(User.simple.singleOpt)}
-
-  }
-  def findAll: Seq[User]= {
-
-  }
-}
-
-
-
-
-case class User(email: String, name: String, password: String)
-
-object User {
-
-  // -- Parsers
-
-
-  val simple = {
-    get[String]("user.email") ~
-      get[String]("user.name") ~
-      get[String]("user.password") map {
-      case email~name~password => User(email, name, password)
+    get[String]("user.password")~
+    get[Boolean]("user.admin") map {
+      case email~name~password~admin => User(email, name, password,admin)
     }
   }
 
@@ -104,18 +78,30 @@ object User {
       SQL(
         """
           insert into user values (
-            {email}, {name}, {password}
+            {email}, {name}, {password},{admin}
           )
         """
       ).on(
         'email -> user.email,
         'name -> user.name,
-        'password -> user.password
+        'password -> user.password,
+        'admin -> user.admin
       ).executeUpdate()
 
       user
 
     }
+  }
+
+  def delete (email:String) {
+    DB.withConnection{ implicit  connection =>
+      SQL(
+          "delete from user where email = {email}"
+      ).on(
+      'email ->email
+      ).executeUpdate()
+    }
+
   }
 
 }

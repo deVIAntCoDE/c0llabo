@@ -1,8 +1,30 @@
+import models.User
 import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
 
 object Global extends GlobalSettings {
+
+
+
+//  override def onStart(app: Application) {
+//    InitialData.insert()
+//  }
+
+
+  object InitialData {
+
+  def insert() = {
+
+    if(User.findAll.isEmpty) {
+
+      Seq(
+        User("guillaume@sample.com", "Guillaume Bort", "secret"),
+        User("maxime@sample.com", "Maxime Dantec", "secret"),
+        User("sadek@sample.com", "Sadek Drobi", "secret"),
+        User("erwan@sample.com", "Erwan Loisant", "secret")
+      ).foreach(User.create)
+    }}}
 
   /**
    ** 404: When action methods are not found or unable to bind posts

@@ -20,8 +20,8 @@ object Application extends Controller {
   )
   
   def index = Action {
-//    Ok(views.html.index())
-    Redirect(routes.Application.users)
+    Ok(views.html.index())
+//    Redirect(routes.Application.users)
   }
 
   def about = Action {
